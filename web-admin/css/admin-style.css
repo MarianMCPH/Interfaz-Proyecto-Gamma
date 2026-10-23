@@ -1,6 +1,9 @@
+/* =================================================_
+   Estilos Institucionales - Login Portal Administrativo FYAG
+   ================================================= */
 
 body {
-    background-color: #f8f9fa; /* Fondo gris claro general */
+    background-color: #f8f9fa;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     height: 100vh;
     display: flex;
@@ -15,6 +18,8 @@ body {
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
     border: none;
+    width: 100%;
+    max-width: 440px;
 }
 
 /* Colores institucionales azul/morado oscuro */
@@ -26,7 +31,7 @@ body {
     background-color: #3b3f68;
     border-color: #3b3f68;
     color: #ffffff;
-    border-radius: 50px; /* Botón ovalado corporativo */
+    border-radius: 50px;
 }
 
 .btn-institutional:hover {
@@ -35,3 +40,107 @@ body {
     color: #ffffff;
 }
 
+/* Ajustes visuales para el logotipo y textos pequeños */
+.logo-container {
+    width: 110px;
+}
+
+.logo-text {
+    font-size: 14px;
+}
+
+.logo-subtext {
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.jwt-security-text {
+    font-size: 11px;
+}
+
+
+/* =================================================_
+   Estilos Dashboard Operativo - FYAG SpA
+   ================================================= */
+
+body {
+    background-color: #f4f6f9;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar lateral fijo oscuro */
+.sidebar {
+    background-color: #2e3252 !important;
+    min-height: 100vh;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+}
+
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Tarjetas y Contenedores Blancos */
+.card-custom {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Tarjetas KPI Superiores */
+.kpi-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+}
+
+.kpi-card-danger {
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+
+.kpi-card-success {
+    background-color: #d1e7dd !important;
+    border-color: #badbcc !important;
+}
+
+/* Botón institucional */
+.btn-institutional {
+    background-color: #2e3252;
+    color: #ffffff;
+    border-radius: 8px;
+    border: none;
+}
+
+.btn-institutional:hover {
+    background-color: #1f2238;
+    color: #ffffff;
+}
+
+/* Perfil de usuario en el sidebar */
+.user-profile-box {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+}
+
+.logo-text {
+    font-size: 16px;
+}
+
+.logo-subtext {
+    font-size: 8px;
+    letter-spacing: 1px;
+}
