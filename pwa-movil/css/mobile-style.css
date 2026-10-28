@@ -1,0 +1,141 @@
+/* =================================================_
+   Estilos PWA Móvil - Frío y Agroindustria SpA (FYAG)
+   ================================================= */
+
+/* Cabecera compacta para móviles */
+.pwa-login-header {
+    width: 100%;
+}
+
+/* Título institucional en color azul/morado oscuro */
+.text-institutional {
+    color: #2e3252;
+}
+
+/* Tarjeta flotante central adaptada al ancho de pantallas móviles */
+.login-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border: none;
+    max-width: 380px;
+}
+
+/* Botón institucional ovalado corporativo */
+.btn-institutional {
+    background-color: #3b3f68;
+    border-color: #3b3f68;
+    color: #ffffff;
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+.btn-institutional:hover {
+    background-color: #2e3252;
+    border-color: #2e3252;
+    color: #ffffff;
+}
+
+body.pwa-body {
+    background-color: #f8f9fa; /* Fondo gris claro general para toda la pantalla */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: block;
+}
+
+/* Contenedor principal que simula la pantalla del teléfono */
+.pwa-container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+    box-shadow: none; /* Sin sombras de marco exterior */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado superior institucional */
+.pwa-header {
+    background-color: #2e3252; /* Azul corporativo FYAG */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.logout-btn-custom {
+    font-size: 15px;
+}
+
+.welcome-text {
+    font-size: 20px;
+    text-align: center;
+}
+
+.username-text {
+    font-size: 30px;
+    text-align: center;
+}
+
+.online-badge {
+  display: flex;
+  justify-content: center;  /* centra horizontalmente */
+  
+}
+
+/* Tarjeta de Alerta de Emergencia Crítica */
+.emergency-card {
+    background-color: #e9ecef; /* Tono gris claro idéntico al prototipo */
+    border-radius: 14px;
+    border: 1px solid #ced4da;
+}
+
+/* Línea separadora limpia entre secciones */
+.section-divider {
+    border: 0;
+    border-top: 2px solid #000000;
+    margin: 1.5rem 0;
+}
+
+.section-title {
+    font-size: 17px;
+}
+
+/* Tarjetas de Faenas Asignadas */
+.obra-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Etiqueta de estado Programado */
+.badge-programado {
+    background-color: #3b3f68;
+    color: #ffffff;
+}
+
+/* Botones institucionales adaptados a la zona táctil con fondo azul sólido requerido */
+.btn-outline-institutional {
+    background-color: #ffffff;
+    border-color: #3b3f68;
+    color: #3b3f68;
+}
+
+.btn-outline-institutional:hover {
+    background-color: #3b3f68;
+    color: #ffffff;
+}
+
+.btn-institutional {
+    background-color: #2e3252; /* Fondo azul institucional sólido */
+    border-color: #2e3252;
+    color: #ffffff;
+}
+
+.btn-institutional:hover {
+    background-color: #1f2238;
+    border-color: #1f2238;
+    color: #ffffff;
+}
