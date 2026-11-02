@@ -121,13 +121,26 @@
 
                             <!-- Barra de búsqueda y filtros -->
                             <div class="d-flex gap-2 mb-3">
+                                <!-- Barra de búsqueda visual (estática) -->
                                 <div class="input-group input-group-sm" style="max-width: 250px;">
                                     <span class="input-group-text bg-white text-muted"><i class="bi bi-search"></i></span>
                                     <input type="text" class="form-control" placeholder="Búsqueda rápida">
                                 </div>
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                    <i class="bi bi-filter"></i> Filtrar por...
-                                </button>
+                                
+                                <!-- Menú desplegable de filtros (Bootstrap 5 nativo) -->
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-filter"></i> Filtrar por...
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><h6 class="dropdown-header">Seleccionar criterio</h6></li>
+                                        <li><a class="dropdown-item" href="#">ID</a></li>
+                                        <li><a class="dropdown-item" href="#">Cliente</a></li>
+                                        <li><a class="dropdown-item" href="#">Técnico</a></li>
+                                        <li><a class="dropdown-item" href="#">Tipo de servicio</a></li>
+                                        <li><a class="dropdown-item" href="#">Estado</a></li>
+                                    </ul>
+                                </div>
                             </div>
 
                             <!-- Tabla vacía lista para recibir datos de FastAPI -->
