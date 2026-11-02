@@ -1,0 +1,141 @@
+<!-- Pagina de Personal y usuario -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal y Usuarios - FYAG SpA</title>
+    
+    <!-- Bootstrap 5.3 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="css/admin-style.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar p-3 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="d-flex align-items-center mb-3">
+                        <a href="https://frioyagroindustria.cl/">
+                            <img src="img/logo.png" alt="FYAG Frío y Agroindustria" style="height: 60px; width: auto;">
+                        </a>                    
+                    </div>
+                    
+                    <ul class="nav flex-column gap-1">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <i class="bi bi-bar-chart-steps me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="gestion-obras.html" class="nav-link">
+                                <i class="bi bi-tools me-2"></i> Gestión de Obras
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="personal-usuarios.html" class="nav-link active">
+                                <i class="bi bi-people me-2"></i> Personal y Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-clipboard-check me-2"></i> Auditoría de Obras
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-box-seam me-2"></i> Solicitudes de Insumos
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Perfil de usuario y cierre de sesión -->
+                <div class="user-profile-box mt-4">
+                    <div class="mb-2 text-white-50">
+                        <i class="bi bi-person-circle fs-1 text-white"></i>
+                    </div>
+                    <span class="d-block text-white fw-medium small mb-2">Administrador Central</span>
+                    <a href="index.html" id="logout-btn" class="btn btn-outline-light btn-sm w-100 rounded-pill py-1">Cerrar sesión</a>
+                </div>
+            </nav>
+
+            <!-- CONTENIDO PRINCIPAL: PERSONAL Y USUARIOS -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold text-dark m-0">Personal y Usuarios</h2>
+                    <span id="live-clock" class="text-muted small fw-medium">Cargando fecha y hora...</span>
+                </div>
+
+                <!-- Barra de filtros y botones de acción -->
+                <div class="card-custom p-3 mb-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                        
+                        <!-- Pestañas de filtro -->
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-dark btn-sm px-3">Todos</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Técnicos</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Administradores</button>
+                        </div>
+
+                        <!-- Botón para nuevo usuario -->
+                        <div>
+                            <button class="btn btn-institutional btn-sm px-3 py-2 text-nowrap" data-bs-toggle="modal" data-bs-target="#modalNuevoUsuario">
+                                <i class="bi bi-plus-lg me-1"></i> Nuevo Usuario
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Buscador rápido -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                                <input type="text" class="form-control" placeholder="Buscar por nombre RUT o cargo...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Personal y Usuarios (Estructura Vacía) -->
+                <div class="card-custom p-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light text-secondary small">
+                                <tr>
+                                    <th style="width: 40px;"><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                                    <th>Nombre y Apellido</th>
+                                    <th>RUT</th>
+                                    <th>Rol</th>
+                                    <th>Correo</th>
+                                    <th>Estado</th>
+                                    <th class="text-center" style="width: 80px;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Estado sin datos registrados -->
+                                <tr>
+                                    <td colspan="7" class="text-center py-5 text-muted">
+                                        <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
+                                        <span>No hay personal o usuarios registrados actualmente.</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap y JS externo -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

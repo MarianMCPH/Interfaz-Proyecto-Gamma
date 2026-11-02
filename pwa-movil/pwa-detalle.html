@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Obra - Portal Terreno FYAG</title>
+    
+    <!-- Configuración PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b429f">
+
+    <!-- Bootstrap 5.3 y Iconos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="css/admin-style.css">
+</head>
+<body class="bg-light">
+
+    <!-- Encabezado PWA (Cambia de color dinámicamente según la urgencia) -->
+    <header id="header-bar" class="py-3 px-3 shadow-sm text-white" style="background-color: #3b429f;">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            <a href="#" class="btn btn-outline-light btn-sm rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                <i class="bi bi-arrow-left fs-5"></i>
+            </a>
+            <div class="d-flex align-items-center gap-2">
+                <img src="img/logo.png" alt="FYAG" style="height: 38px; width: auto;" class="bg-white rounded p-1">
+                <h4 class="m-0 fw-bold text-white fs-4">Detalle de Obra</h4>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal optimizado para móviles -->
+    <main class="container py-3" style="max-width: 600px;">
+        
+        <!-- Tarjeta 1: Identificación y Mandante -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body p-3">
+                <div class="border-bottom pb-2 mb-3 text-center">
+                    <h5 class="fw-bold m-0" id="obra-id-badge">ID: #105 - <span class="badge text-bg-secondary">Climatización</span></h5>
+                </div>
+
+                <h6 class="fw-bold text-uppercase text-secondary small mb-2" style="font-size: 0.75rem;">Identificación del Mandante</h6>
+                <div class="mb-3 small">
+                    <p class="mb-1"><strong>Cliente:</strong> <span id="val-cliente">Agroindustrial El Peumo de Bulnes SpA</span></p>
+                    <p class="mb-1"><strong>Dirección:</strong> <span id="val-direccion">Hijuela El Rosal s/n, Ruta 148, Bulnes, Ñuble</span></p>
+                    <p class="mb-0"><strong>Contacto:</strong> <span id="val-contacto">Juan Perez | +56 9 3472 8940</span></p>
+                </div>
+
+                <hr class="my-2">
+
+                <h6 class="fw-bold text-uppercase text-secondary small mb-2" style="font-size: 0.75rem;">Detalles de la Faena</h6>
+                <div class="small">
+                    <p class="mb-1"><strong>Tipo:</strong> <span id="val-tipo" class="fw-bold" style="color: #3b429f;">Climatización</span></p>
+                    <p class="mb-1"><strong>Hora:</strong> <span id="val-hora">16:30 hrs</span></p>
+                    <p class="mb-1"><strong>Presupuesto:</strong> <span id="val-presupuesto">PRES-2026-012</span></p>
+                    <p class="mb-0"><strong>Ubicación:</strong> <span id="val-ubicacion">Cámara de Frío #2</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Instrucciones Técnicas y Equipamiento -->
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-3">
+                <h5 class="fw-bold text-center border-bottom pb-2 mb-3 fs-6">Instrucciones Técnicas</h5>
+                
+                <div class="small mb-3">
+                    <p class="mb-0 text-secondary" id="val-instrucciones" style="color: #333 !important;">Revisión de unidad manejadora de aire (UMAH) y Split Central. Inspección de filtros de aire, verificación de presión de gas refrigerante R-410A / R-32, limpieza de serpentín del evaporador y condensador, comprobación del sistema de drenaje de condensado y calibración de termostato digital.</p>
+                </div>
+
+                <div class="bg-light p-2 rounded border">
+                    <h6 class="fw-bold small mb-2 text-dark">Equipamiento:</h6>
+                    <ul class="list-unstyled small mb-0 ps-2 text-secondary" id="val-equipamiento" style="color: #333 !important;">
+                        <li>• <strong>Equipo:</strong> Unidad de Climatización Roof-Top / Multi-Split Industrial</li>
+                        <li>• <strong>Tensión:</strong> 220V / 380V Trifásico</li>
+                        <li>• <strong>Caudal de Aire:</strong> 2.500 - 3.500 CFM</li>
+                        <li>• <strong>Tipo de Refrigerante:</strong> R-410A / R-32</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción para Terreno (Grandes y distribuidos en columna o ancho completo) -->
+        <div class="d-grid gap-3 mb-4">
+            <a id="btn-como-llegar" href="https://www.google.com/maps/search/?api=1&query=Hijuela+El+Rosal+s/n,+Ruta+148,+Bulnes,+Ñuble" target="_blank" class="btn btn-outline-secondary btn-lg py-3 fw-semibold text-decoration-none d-flex align-items-center justify-content-center shadow-sm">
+                <i class="bi bi-geo-alt me-2 fs-5"></i> ¿Cómo llegar?
+            </a>
+            <button type="button" id="btn-iniciar" class="btn btn-lg text-white py-3 fw-semibold shadow-sm" style="background-color: #3b429f;">
+                Iniciar Faena
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Script de Registro PWA y Carga Dinámica según Parámetro (Emergencia vs Normal) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker de Terreno registrado.'))
+                .catch(err => console.log('Error SW:', err));
+        }
+
+        // Detecta si la URL trae el parámetro de emergencia (?urgencia=Emergencia)
+        const params = new URLSearchParams(window.location.search);
+        const urgencia = params.get('urgencia');
+
+        if (urgencia === 'Emergencia Crítica' || urgencia === 'Emergencia') {
+            // Cambiar estilos y datos al modo Emergencia (Rojo)
+            const header = document.getElementById('header-bar');
+            header.style.backgroundColor = '#dc3545';
+            
+            document.getElementById('obra-id-badge').innerHTML = 'ID: #106 - <span class="badge bg-danger">Emergencia Crítica</span>';
+            document.getElementById('val-cliente').textContent = 'Frigorífico y Procesadora Frutícola Ñuble Ltda.';
+            document.getElementById('val-direccion').textContent = 'Longitudinal Sur Km 398, Parque Industrial';
+            document.getElementById('val-contacto').textContent = 'Carlos Mendoza | +56 9 8765 4321';
+            
+            const tipo = document.getElementById('val-tipo');
+            tipo.textContent = 'Emergencia';
+            tipo.style.color = '#dc3545';
+            
+            document.getElementById('val-hora').textContent = '8:00 hrs';
+            document.getElementById('val-presupuesto').textContent = 'PRES-2026-019';
+            document.getElementById('val-ubicacion').textContent = 'Cámara de Congelado #1';
+            
+            document.getElementById('val-instrucciones').innerHTML = '<strong>Atención Requerida:</strong> Falla crítica en central de frío y riesgo inminente de quiebre en la cadena de frío de fruta fresca de exportación.<br><br><strong>Acciones iniciales:</strong> Inspección urgente de compresor semihermético, verificación de fuga masiva de refrigerante R-404A en línea de líquido y revisión de disparo por alta temperatura.';
+            
+            document.getElementById('val-equipamiento').innerHTML = `
+                <li>• <strong>Equipo:</strong> Rack de Frío Industrial / Compresor Semihermético BITZER</li>
+                <li>• <strong>Tensión:</strong> 380V Trifásico</li>
+                <li>• <strong>Set Point Requerido:</strong> -22 °C</li>
+                <li>• <strong>Tipo de Refrigerante:</strong> R-404A</li>
+            `;
+            
+            document.getElementById('btn-como-llegar').href = 'https://www.google.com/maps/search/?api=1&query=Longitudinal+Sur+Km+398,+Parque+Industrial+Chillan';
+            document.getElementById('btn-iniciar').style.backgroundColor = '#dc3545';
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
