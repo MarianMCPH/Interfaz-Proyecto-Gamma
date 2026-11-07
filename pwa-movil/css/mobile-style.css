@@ -1,0 +1,63 @@
+/* Paleta Corporativa Móvil - Proyecto Gamma */
+body {
+    background-color: #f0f2f5; /* Fondo ligeramente más oscuro para pantallas chicas */
+}
+
+/* Estilo de tarjeta para dispositivos móviles */
+.card-gamma-mobile {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 12px; /* Bordes más redondeados en móviles */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Sombra un poco más dispersa */
+    margin-bottom: 20px;
+}
+.app-header {
+    background-color: #2b3040;
+    color: white;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.app-header a {
+    color: white;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+/* Transición suave para el encabezado de color */
+#header-bar {
+    transition: background-color 0.3s ease;
+}
+
+/* Estilos de tarjetas del detalle */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Tipografía y bordes del detalle */
+.card-body h5,
+.card-body h6 {
+    letter-spacing: 0.3px;
+}
+
+/* Botones de acción táctiles grandes para móvil */
+.d-grid .btn-lg {
+    font-size: 1.05rem;
+    border-radius: 10px;
+    transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+.d-grid .btn-lg:active {
+    transform: scale(0.98);
+}
+
+/* Estilos para badges de estado */
+.badge.text-bg-secondary {
+    background-color: #6c757d !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+}
