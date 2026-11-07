@@ -1,0 +1,8 @@
+/* Estilos propios de la pantalla Insumos */
+.insumo-card.seleccionado { border: 2px solid #198754; }
+.stock-bajo { color: #dc3545; font-weight: 600; }
+.background {background-color: #2e3252 ;}
+
+/* Botones +/- amplios para uso con guantes */
+.btn-cant { width: 56px; height: 56px; font-size: 1.6rem; font-weight: 700; line-height: 1; }
+.cant-valor { min-width: 64px; text-align: center; font-size: 1.4rem; font-weight: 700; }

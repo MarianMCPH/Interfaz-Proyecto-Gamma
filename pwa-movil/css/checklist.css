@@ -1,0 +1,9 @@
+/* Estilos propios de la pantalla Checklist (no modifica mobile-style.css) */
+.item-card { border-left: 6px solid #adb5bd; }
+.item-card.obligatorio { border-left-color: #dc3545; }   /* rojo: ítem crítico */
+.item-card.completo    { border-left-color: #198754; }   /* verde: respondido */
+.item-card.falta       { box-shadow: 0 0 0 3px #dc3545; } /* resalta lo que falta */
+.background {background-color: #2e3252 ;}
+
+/* Botones táctiles amplios para usar con guantes */
+.btn-resp { min-height: 56px; font-weight: 600; font-size: 1.05rem; }
