@@ -1,9 +1,44 @@
-/* Estilos propios de la pantalla Auditoría (no modifica admin-style.css) */
-.miniatura { width: 96px; height: 72px; object-fit: cover; cursor: pointer;
-             border: 3px solid transparent; border-radius: .375rem; }
-.miniatura.activa { border-color: #0d6efd; }
-#visor img { max-width: 100%; max-height: 360px; }
-#firma img { max-width: 100%; max-height: 120px; }
-tr.fila-cerrada td { background-color: #f1f3f5; }
-.tarjeta-resumen .numero { font-size: 2rem; font-weight: 700; line-height: 1; }
-.background {background-color: #2e3252 ;}
+:root { --indigo: #2e3252; --indigo-2: #3b3f68; --fondo: #f8f9fa; }
+body { background: #f4f6f9; font-family: system-ui, "Segoe UI", sans-serif; }
+.topbar { background: var(--indigo); color: #fff; padding: 12px 16px; display: flex; gap: 14px; align-items: center; }
+.lateral { --bs-offcanvas-width: 260px; background: var(--indigo); color: #fff; }
+.lateral-int { background: var(--indigo); color: #fff; display: flex; flex-direction: column; min-height: 100%; padding: 16px; width: 100%; }
+@media (min-width: 768px) {
+  .lateral { position: fixed; top: 0; bottom: 0; left: 0; width: 260px; }
+  .lateral-int { height: 100vh; }
+  .principal { margin-left: 260px; }
+}
+.logo-caja { text-align: left; }  /* logo directo sobre el sidebar, igual que el resto del grupo */
+.logo-caja img { max-width: 100%; height: 60px; width: auto; }
+.lateral .nav-link { color: #e4e4f5; border-radius: 10px; padding: 12px 14px; }
+.lateral .nav-link:hover { background: rgba(255,255,255,.1); }
+.lateral .nav-link.activo { background: #fff; color: var(--indigo); font-weight: 600; }
+.perfil { background: rgba(255,255,255,.08); border-radius: 16px; padding: 15px; text-align: center; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: #3D4063; display: grid; place-items: center; font-weight: 700; }
+.principal { padding: 24px; }
+.panel { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.kpi { background: #fff; border-radius: 14px; padding: 16px; border-left: 6px solid; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.kpi .n { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.kpi.amarillo { border-color: #f0ad00; } .kpi.verde { border-color: #198754; } .kpi.rojo { border-color: #dc3545; }
+.pills-indigo .nav-link { color: var(--indigo); border-radius: 20px; }
+.pills-indigo .nav-link.active { background: var(--indigo); color: #fff; }
+.buscador { max-width: 220px; } .filtro { max-width: 220px; }
+.tabla thead th { background: #dadbde; font-weight: 600; white-space: nowrap; }
+.tabla td { font-size: .92rem; }
+.tabla th { font-size: .9rem; }
+.pill { border-radius: 20px; padding: 4px 12px; font-size: .85rem; font-weight: 600; display: inline-block; }
+.pill.PENDIENTE { background: #fff3cd; color: #7a5b00; } .pill.APROBADA { background: #d1e7dd; color: #0f5132; }
+.pill.OBSERVADA { background: #f8d7da; color: #842029; } .pill.PROCESO { background: #e2e3f5; color: var(--indigo); }
+.btn-indigo { background: var(--indigo); color: #fff; border: 0; min-height: 44px; padding: 0 22px; }
+.btn-indigo:hover, .btn-indigo:focus { background: var(--indigo-2); color: #fff; }
+.btn-indigo:disabled { background: var(--indigo); color: #fff; opacity: .45; }
+.btn-observar { background: #f6e6e7; color: #842029; border: 1px solid #e6acac; min-height: 44px; padding: 0 22px; }
+.btn-observar:disabled { opacity: .45; }
+.enlace-indigo { color: var(--indigo); text-decoration: none; font-weight: 600; }
+.seccion { font-size: .85rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--indigo); padding-bottom: 8px; border-bottom: 1px solid #b9b9dd; margin-bottom: 12px; }
+.visor { background: #e9ecef; border-radius: 10px; text-align: center; }
+.visor img { max-width: 100%; max-height: 360px; border-radius: 10px; }
+.miniatura { width: 96px; height: 72px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 3px solid transparent; }
+.miniatura.activa { border-color: var(--indigo); }
+.firma img { max-width: 100%; border: 1px solid #dee2e6; border-radius: 8px; background: #fff; }
+.fila-cerrada td { color: #6c757d; }

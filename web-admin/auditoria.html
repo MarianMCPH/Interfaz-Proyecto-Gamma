@@ -4,142 +4,101 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Auditoría de Obras | FYAG Admin</title>
-  <!-- Bootstrap 5.3-->
+  <!-- Bootstrap 5.3 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/auditoria.css">
 </head>
-<body class="bg-light">
-
-  <!-- Barra de navegación-->
-  <nav class="navbar navbar-expand-lg navbar-dark background">
-    <div class="container-fluid">
-      <span class="navbar-brand fw-bold">FYAG Admin</span>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item"><a class="nav-link" href="dashboard.html">Panel principal</a></li>
-          <li class="nav-item"><a class="nav-link active" href="auditoria.html">Auditoría de Obras</a></li>
-        </ul>
-        <span class="navbar-text">Administrador</span>
-      </div>
-    </div>
+<body>
+  <!-- Barra superior móvil -->
+  <nav class="d-md-none topbar">
+    <button class="btn btn-link text-white fs-3 p-0" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-label="Abrir menú">&#9776;</button>
+    <span>Auditoría de Obras</span>
   </nav>
 
-  <main class="container-fluid py-4">
-    <h1 class="h3 mb-1">Bandeja de Auditoría y Cierre de Faenas</h1>
-    <p class="text-muted">Revisa las faenas terminadas en terreno antes de autorizar su facturación.</p>
-
-    <!-- Resumen -->
-    <div class="row g-3 mb-4" id="resumen"></div>
-
-    <!-- Filtros -->
-    <div class="card shadow-sm mb-3">
-      <div class="card-body">
-        <div class="row g-2 align-items-end">
-          <div class="col-6 col-md-3">
-            <label class="form-label small mb-1" for="fTecnico">Técnico</label>
-            <select id="fTecnico" class="form-select"><option value="">Todos</option></select>
-          </div>
-          <div class="col-6 col-md-2">
-            <label class="form-label small mb-1" for="fEstado">Estado</label>
-            <select id="fEstado" class="form-select">
-              <option value="">Todos</option>
-              <option value="PENDIENTE">Pendiente de auditoría</option>
-              <option value="CERRADA">Cerrada</option>
-              <option value="DEVUELTA">Devuelta al técnico</option>
-            </select>
-          </div>
-          <div class="col-6 col-md-3">
-            <label class="form-label small mb-1" for="fCliente">Cliente</label>
-            <input id="fCliente" type="search" class="form-control" placeholder="Buscar cliente">
-          </div>
-          <div class="col-6 col-md-2">
-            <label class="form-label small mb-1" for="fFecha">Fecha</label>
-            <input id="fFecha" type="date" class="form-control">
-          </div>
-          <div class="col-12 col-md-2 d-grid">
-            <button id="btnLimpiar" class="btn btn-outline-secondary">Limpiar filtros</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabla -->
-    <div class="card shadow-sm">
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>N° orden</th><th>Cliente</th><th>Técnico</th><th>Fecha</th>
-              <th class="text-center">Fotos</th><th class="text-center">Firma</th><th>Estado</th><th class="text-end">Acción</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-      </div>
-      <div id="vacio" class="text-center text-muted p-4 d-none">No hay obras que coincidan con los filtros.</div>
-    </div>
-  </main>
-
-  <!-- Modal: Auditar obra -->
-  <div class="modal fade" id="modalAuditar" tabindex="-1" aria-labelledby="tituloModal" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title h5" id="tituloModal">Auditar obra</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-4">
-            <!-- Columna izquierda: datos, materiales y firma -->
-            <div class="col-lg-5">
-              <h3 class="h6 text-uppercase text-muted">Datos de la obra</h3>
-              <dl class="row small mb-3" id="datosObra"></dl>
-
-              <h3 class="h6 text-uppercase text-muted">Materiales usados (cardex)</h3>
-              <table class="table table-sm small">
-                <thead><tr><th>Código</th><th>Material</th><th class="text-end">Cant.</th></tr></thead>
-                <tbody id="materiales"></tbody>
-              </table>
-
-              <h3 class="h6 text-uppercase text-muted">Firma de conformidad</h3>
-              <div class="border rounded bg-white p-2 text-center" id="firma"></div>
-            </div>
-
-            <!-- Columna derecha: fotos -->
-            <div class="col-lg-7">
-              <h3 class="h6 text-uppercase text-muted">Evidencia fotográfica</h3>
-              <div class="border rounded bg-dark text-center mb-2" id="visor"></div>
-              <div class="d-flex flex-wrap gap-2" id="miniaturas"></div>
-            </div>
-          </div>
-
-          <!-- Motivo de devolución -->
-          <div class="mt-4 d-none" id="bloqueMotivo">
-            <label for="motivo" class="form-label fw-semibold">Motivo de la devolución (obligatorio)</label>
-            <textarea id="motivo" class="form-control" rows="2"></textarea>
-            <div class="invalid-feedback">Escribe el motivo para devolver la obra al técnico.</div>
-          </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <span class="small text-muted" id="notaEstado"></span>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-danger" id="btnDevolver">Devolver al técnico</button>
-            <button class="btn btn-success" id="btnAutorizar">Autorizar facturación y cerrar faena</button>
-          </div>
-        </div>
+  <!-- Menú lateral -->
+  <div class="offcanvas-md offcanvas-start lateral" tabindex="-1" id="menu" aria-label="Menú principal">
+    <div class="lateral-int">
+      <div class="logo-caja"><img src="img/logo.png" alt="Frío y Agroindustria SpA"></div>
+      <nav class="nav flex-column mt-3">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-bar-chart-steps me-2"></i>Dashboard</a>
+        <a class="nav-link" href="#"><i class="bi bi-tools me-2"></i>Gestión de Obras</a>
+        <a class="nav-link" href="#"><i class="bi bi-people me-2"></i>Personal y Usuarios</a>
+        <a class="nav-link activo" href="auditoria.html" aria-current="page"><i class="bi bi-clipboard-check me-2"></i>Auditoría de Obras</a>
+        <a class="nav-link" href="#"><i class="bi bi-box-seam me-2"></i>Solicitudes de Insumos</a>
+      </nav>
+      <div class="perfil mt-auto">
+        <i class="bi bi-person-circle fs-1"></i>
+        <span class="d-block fw-medium small mb-2">Administrador Central</span>
+        <a href="index.html" class="btn btn-sm btn-outline-light w-100 rounded-pill">Cerrar sesión</a>
       </div>
     </div>
   </div>
 
-  <!-- Aviso (toast) -->
+  <main class="principal">
+    <!-- VISTA LISTA -->
+    <section id="vistaLista">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+        <div><h1 class="h3 mb-0">Auditoría de Obras</h1><div class="text-muted">Revise y valide las faenas finalizadas por los técnicos</div></div>
+        <div class="text-muted" id="fechaHoy"></div>
+      </div>
+
+      <div class="row g-3 mb-3" id="resumen"></div>
+
+      <div class="panel">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+          <ul class="nav nav-pills pills-indigo" id="tabs">
+            <li class="nav-item"><button class="nav-link active" data-f="">Todas</button></li>
+            <li class="nav-item"><button class="nav-link" data-f="PROCESO">En proceso</button></li>
+            <li class="nav-item"><button class="nav-link" data-f="PENDIENTE">Pendientes</button></li>
+            <li class="nav-item"><button class="nav-link" data-f="APROBADA">Aprobadas</button></li>
+            <li class="nav-item"><button class="nav-link" data-f="OBSERVADA">Observadas</button></li>
+          </ul>
+          <input id="buscar" type="search" class="form-control ms-md-auto buscador" placeholder="Búsqueda rápida" aria-label="Búsqueda rápida">
+          <select id="fTecnico" class="form-select filtro" aria-label="Filtrar por técnico"><option value="">Filtrar por técnico…</option></select>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-middle tabla">
+            <thead><tr><th>ID</th><th>Cliente</th><th>Tipo de servicio</th><th>Técnico</th><th>Fecha cierre</th><th class="text-center">Evidencias</th><th>Estado de validación</th><th class="text-end">Acción</th></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <p id="vacio" class="text-center text-muted py-4 d-none">No hay obras que coincidan con el filtro.</p>
+      </div>
+    </section>
+
+    <!-- VISTA DETALLE: Auditar Obra -->
+    <section id="vistaDetalle" class="d-none">
+      <button id="btnVolver" class="btn btn-link px-0 mb-2 enlace-indigo">&larr; Volver a la lista</button>
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h1 class="h3 mb-0" id="tituloObra"></h1><span id="badgeObra"></span>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-6"><div class="panel h-100"><h2 class="seccion">Resumen operativo</h2><dl class="row mb-0" id="datosObra"></dl></div></div>
+        <div class="col-lg-6"><div class="panel h-100"><h2 class="seccion">Checklist del técnico</h2><ul class="list-group list-group-flush" id="checklistObra"></ul></div></div>
+        <div class="col-lg-6"><div class="panel h-100"><h2 class="seccion">Consumo de materiales</h2>
+          <table class="table table-sm mb-0"><thead><tr><th>Código</th><th>Artículo</th><th class="text-end">Cantidad</th><th>Cardex</th></tr></thead><tbody id="materiales"></tbody></table></div></div>
+        <div class="col-lg-6"><div class="panel h-100"><h2 class="seccion">Conformidad del mandante</h2><div id="firma" class="firma"></div><div class="small text-muted mt-2" id="firmante"></div></div></div>
+        <div class="col-12"><div class="panel"><h2 class="seccion">Evidencia multimedia</h2>
+          <div id="visor" class="visor mb-2"></div><div id="miniaturas" class="d-flex gap-2 flex-wrap"></div></div></div>
+        <div class="col-12"><div class="panel">
+          <div id="bloqueMotivo" class="mb-3 d-none">
+            <label for="motivo" class="form-label fw-semibold">Motivo de la observación (se enviará al técnico)</label>
+            <textarea id="motivo" class="form-control" rows="3"></textarea>
+            <div class="invalid-feedback">Debe indicar el motivo para observar la obra.</div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <button id="btnAprobar" class="btn btn-indigo">Aprobar</button>
+            <button id="btnObservar" class="btn btn-observar">Observar</button>
+            <span class="text-muted small" id="notaEstado"></span>
+          </div>
+        </div></div>
+      </div>
+    </section>
+  </main>
+
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="toastAviso" class="toast text-bg-success" role="status" aria-live="polite">
-      <div class="d-flex"><div class="toast-body" id="toastTexto"></div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button></div>
-    </div>
+    <div id="toastAviso" class="toast" role="status" aria-live="polite"><div class="toast-body" id="toastTexto"></div></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
