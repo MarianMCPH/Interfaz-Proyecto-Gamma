@@ -1,9 +1,25 @@
-/* Estilos propios de la pantalla Checklist (no modifica mobile-style.css) */
-.item-card { border-left: 6px solid #adb5bd; }
-.item-card.obligatorio { border-left-color: #dc3545; }   /* rojo: ítem crítico */
-.item-card.completo    { border-left-color: #198754; }   /* verde: respondido */
-.item-card.falta       { box-shadow: 0 0 0 3px #dc3545; } /* resalta lo que falta */
-.background {background-color: #2e3252 ;}
-
-/* Botones táctiles amplios para usar con guantes */
-.btn-resp { min-height: 56px; font-weight: 600; font-size: 1.05rem; }
+/* Estilos propios de Paso 1 (maqueta Canva). Color corporativo: --indigo (ajustar si el grupo define otro). */
+:root { --indigo: #2e3252; --indigo-2: #3b3f68; --fondo: #f8f9fa; --verde: #62B467; }
+body { background: var(--fondo); padding-bottom: 96px; font-family: system-ui, "Segoe UI", sans-serif; }
+.encabezado { border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; background: var(--indigo); color: #fff; display: flex; align-items: center; gap: 14px; padding: 16px; }
+.encabezado h1 { font-size: 1.25rem; margin: 0; font-weight: 500; }
+.volver { color: #fff; font-size: 1.6rem; line-height: 1; text-decoration: none; }
+.franja { background: #fff; display: flex; align-items: center; gap: 12px; padding: 8px 16px; border-bottom: 2px solid #d4d5d8; }
+.franja .logo { height: 48px; width: auto; }
+.franja .orden { flex: 1; font-size: .95rem; }
+.pill-linea { background: var(--verde); color: #fff; border-radius: 20px; padding: 4px 14px; font-size: .9rem; white-space: nowrap; }
+.pill-linea::before { content: "\2022  "; }
+.pill-linea.sin-red { background: #dc3545; }
+.contenido { max-width: 640px; margin: 0 auto; padding: 16px; }
+.tarjeta, .item { background: #fff; border: 2px solid #d4d5d8; border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; }
+.item.obligatorio { border-left: 6px solid #dc3545; }
+.item.completo { border-left: 6px solid var(--verde); }
+.etiqueta { font-weight: 600; }
+.item .form-select { min-height: 48px; color: #555; }
+.item .form-select.respondido { color: #000; border-color: var(--indigo); }
+.progress-bar { background: var(--indigo); }
+.alert-rojo { background: #fde8e8; border: 1px solid #f5b5b5; color: #b02a37; border-radius: 10px; padding: 12px 14px; font-weight: 500; }
+.barra-inferior { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 2px solid #d4d5d8; padding: 12px 16px; }
+.btn-indigo { display: block; width: 100%; max-width: 640px; margin: 0 auto; background: var(--indigo-2); color: #fff; border: 0; border-radius: 50px; min-height: 52px; font-size: 1.05rem; }
+.btn-indigo:disabled { opacity: .5; }
+.btn-indigo:not(:disabled):active { background: var(--indigo); }
