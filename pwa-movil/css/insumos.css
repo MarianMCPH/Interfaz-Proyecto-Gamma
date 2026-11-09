@@ -1,4 +1,3 @@
-/* Estilos propios de Paso 2 (maqueta Canva). */
 :root { --indigo: #2e3252; --indigo-2: #3b3f68; --fondo: #f8f9fa; --verde: #62B467; }
 body { background: var(--fondo); padding-bottom: 104px; font-family: system-ui, "Segoe UI", sans-serif; }
 .encabezado { border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; background: var(--indigo); color: #fff; display: flex; align-items: center; gap: 14px; padding: 16px; }
