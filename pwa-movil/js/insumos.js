@@ -1,4 +1,3 @@
-// Catálogo de insumos (datos de ejemplo; luego vendrán de la API).
 const CATALOGO = [
   { id: 1, codigo: 'FLT-001', nombre: 'Filtro deshidratador', stock: 12, unidad: 'un', paso: 1 },
   { id: 2, codigo: 'GAS-404', nombre: 'Gas refrigerante R404A', stock: 18, unidad: 'kg', paso: 0.5 },
@@ -10,7 +9,7 @@ const CATALOGO = [
 ];
 
 const $ = id => document.getElementById(id);
-let filas = [{ art: '', cant: '' }];       // una fila = un artículo a rebajar
+let filas = [{ art: '', cant: '' }];       
 const modalSol = new bootstrap.Modal($('modalSolicitud'));
 const fmt = n => String(Math.round(n * 100) / 100);
 
@@ -44,7 +43,7 @@ $('filas').addEventListener('change', e => {
     mostrarAviso(`No puede usar más de lo disponible: ${ins.nombre} (stock ${fmt(ins.stock)} ${ins.unidad}).`);
     filas[n].cant = String(ins.stock);
   } else mostrarAviso('');
-  setTimeout(dibujar, 0);   // evita re-dibujar durante el evento blur
+  setTimeout(dibujar, 0);   
 });
 $('filas').addEventListener('click', e => {
   const b = e.target.closest('[data-quitar]'); if (!b) return;
@@ -56,7 +55,6 @@ $('btnAgregar').addEventListener('click', () => { filas.push({ art: '', cant: ''
 $('btnSolicitar').addEventListener('click', () => { $('solTexto').value = ''; $('solTexto').classList.remove('is-invalid'); modalSol.show(); });
 $('btnEnviarSol').addEventListener('click', () => {
   if (!$('solTexto').value.trim()) { $('solTexto').classList.add('is-invalid'); return; }
-  // TODO API: POST de la solicitud (cola offline con uuid_sync)
   modalSol.hide(); bootstrap.Toast.getOrCreateInstance($('toastOk')).show();
 });
 
@@ -65,7 +63,7 @@ $('btnConfirmar').addEventListener('click', () => {
   filas.forEach(f => { if (f.art && Number(f.cant) > 0) consumo[f.art] = (consumo[f.art] || 0) + Number(f.cant); });
   if (!Object.keys(consumo).length) { mostrarAviso('Agregue al menos un material con cantidad, o use "Solicitar Insumos" si no hay stock.'); return; }
   sessionStorage.setItem('consumo', JSON.stringify(consumo));
-  window.location.href = 'evidencia.html';   // pantalla del Integrante 4
+  window.location.href = 'evidencia.html';  
 });
 
 function red() { const e = $('estadoRed'); e.textContent = navigator.onLine ? 'En línea' : 'Sin conexión'; e.classList.toggle('sin-red', !navigator.onLine); }
