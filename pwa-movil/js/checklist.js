@@ -1,5 +1,3 @@
-// Checklist dinámico: los ítems cambian según la categoría de faena.
-// obligatorio: true  => bloquea el avance si no se responde.
 const CHECKLISTS = {
   camara: [
     { id: 'c1', texto: 'Temperatura de la cámara dentro del rango', obligatorio: true },
@@ -22,7 +20,7 @@ const CHECKLISTS = {
   ]
 };
 
-const respuestas = {};            // { idItem: 'ok' | 'falla' }
+const respuestas = {};           
 const selCategoria = document.getElementById('categoria');
 const lista = document.getElementById('listaItems');
 const barra = document.getElementById('barra');
@@ -72,7 +70,6 @@ function actualizar() {
   aviso.classList.toggle('d-none', faltantes.length === 0);
 }
 
-// Indicador En línea / Sin conexión (la PWA debe seguir funcionando sin red)
 function red() {
   const e = document.getElementById('estadoRed');
   e.textContent = navigator.onLine ? 'En línea' : 'Sin conexión';
@@ -83,7 +80,6 @@ window.addEventListener('online', red); window.addEventListener('offline', red);
 selCategoria.addEventListener('change', dibujar);
 
 btn.addEventListener('click', () => {
-  // Guarda el resultado para la siguiente pantalla y avanza
   sessionStorage.setItem('checklist', JSON.stringify({ categoria: selCategoria.value, respuestas }));
   window.location.href = 'insumos.html';
 });
