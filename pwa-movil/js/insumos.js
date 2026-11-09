@@ -9,93 +9,65 @@ const CATALOGO = [
   { id: 7, codigo: 'ACE-050', nombre: 'Aceite para compresor', stock: 25, unidad: 'lt', paso: 0.5 }
 ];
 
-const consumo = {};   // { idInsumo: cantidad }
-const cont = document.getElementById('catalogo');
-const resumen = document.getElementById('resumen');
-const aviso = document.getElementById('aviso');
-const buscador = document.getElementById('buscador');
-const sinRes = document.getElementById('sinResultados');
-const contador = document.getElementById('contador');
-
+const $ = id => document.getElementById(id);
+let filas = [{ art: '', cant: '' }];       // una fila = un artículo a rebajar
+const modalSol = new bootstrap.Modal($('modalSolicitud'));
 const fmt = n => String(Math.round(n * 100) / 100);
 
 function dibujar() {
-  const q = buscador.value.trim().toLowerCase();
-  const lista = CATALOGO.filter(i => i.nombre.toLowerCase().includes(q) || i.codigo.toLowerCase().includes(q));
-  cont.innerHTML = '';
-  sinRes.classList.toggle('d-none', lista.length > 0);
-
-  lista.forEach(i => {
-    const cant = consumo[i.id] || 0;
-    const card = document.createElement('div');
-    card.className = 'card insumo-card shadow-sm' + (cant > 0 ? ' seleccionado' : '');
-    card.innerHTML = `
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-start">
-          <div>
-            <div class="fw-semibold">${i.nombre}</div>
-            <div class="small text-muted">Código: ${i.codigo}</div>
-          </div>
-          <div class="text-end small ${i.stock <= 3 ? 'stock-bajo' : 'text-muted'}">
-            Stock: ${fmt(i.stock)} ${i.unidad}
-          </div>
-        </div>
-        <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
-          <button class="btn btn-outline-danger btn-cant" data-id="${i.id}" data-op="-" aria-label="Quitar">&minus;</button>
-          <span class="cant-valor">${fmt(cant)} <small>${i.unidad}</small></span>
-          <button class="btn btn-outline-success btn-cant" data-id="${i.id}" data-op="+" aria-label="Agregar">+</button>
-        </div>
-      </div>`;
-    cont.appendChild(card);
-  });
-}
-
-function cambiar(id, op) {
-  const ins = CATALOGO.find(i => i.id === id);
-  let nueva = (consumo[id] || 0) + (op === '+' ? ins.paso : -ins.paso);
-  if (nueva < 0) nueva = 0;
-  if (nueva > ins.stock) {
-    mostrarAviso('No puedes usar más de lo disponible: ' + ins.nombre + ' (stock ' + fmt(ins.stock) + ' ' + ins.unidad + ').');
-    nueva = ins.stock;
-  } else {
-    aviso.classList.add('d-none');
-  }
-  if (nueva === 0) delete consumo[id]; else consumo[id] = nueva;
-  dibujar();
-  actualizarResumen();
-}
-
-function actualizarResumen() {
-  const ids = Object.keys(consumo);
-  contador.textContent = ids.length;
-  if (!ids.length) {
-    resumen.innerHTML = '<li class="list-group-item text-muted">Aún no has seleccionado insumos.</li>';
-    return;
-  }
-  resumen.innerHTML = ids.map(id => {
-    const i = CATALOGO.find(x => x.id === Number(id));
-    return `<li class="list-group-item d-flex justify-content-between">
-              <span>${i.nombre}</span><strong>${fmt(consumo[id])} ${i.unidad}</strong></li>`;
+  $('filas').innerHTML = filas.map((f, n) => {
+    const ins = CATALOGO.find(i => i.id === Number(f.art));
+    const listo = ins && Number(f.cant) > 0;
+    const opts = CATALOGO.map(i => `<option value="${i.id}" ${i.id === Number(f.art) ? 'selected' : ''}>${i.codigo} · ${i.nombre} (stock ${fmt(i.stock)} ${i.unidad})</option>`).join('');
+    return `<div class="fila" data-n="${n}">
+      <label for="a${n}">Artículo / Repuesto</label>
+      <select id="a${n}" class="form-select mb-2" data-campo="art"><option value="">Seleccionar opción</option>${opts}</select>
+      <label for="c${n}">Cantidad Usada ${ins ? '(' + ins.unidad + ')' : ''}</label>
+      <input id="c${n}" type="number" inputmode="decimal" min="0" ${ins ? `step="${ins.paso}" max="${ins.stock}"` : 'disabled'} class="form-control" placeholder="Ingrese cantidad" value="${f.cant}" data-campo="cant">
+      <div class="cardex">
+        <div><div class="fw-semibold">Estado Cardex</div>
+          <div class="estado ${listo ? 'ok' : 'pend'}">${listo ? '<i class="bi bi-check-lg"></i> Rebajado de Stock' : 'Pendiente de datos'}</div></div>
+        <button class="btn-basura" data-quitar="${n}" aria-label="Quitar material"><i class="bi bi-trash3-fill"></i></button>
+      </div></div>`;
   }).join('');
 }
 
-function mostrarAviso(t) { aviso.textContent = t; aviso.classList.remove('d-none'); }
+function mostrarAviso(t) { $('aviso').textContent = t; $('aviso').classList.toggle('d-none', !t); }
 
-cont.addEventListener('click', e => {
-  const b = e.target.closest('button[data-id]');
-  if (b) cambiar(Number(b.dataset.id), b.dataset.op);
+$('filas').addEventListener('change', e => {
+  const fila = e.target.closest('.fila'); if (!fila) return;
+  const n = Number(fila.dataset.n), campo = e.target.dataset.campo;
+  filas[n][campo] = e.target.value;
+  if (campo === 'art') filas[n].cant = '';
+  const ins = CATALOGO.find(i => i.id === Number(filas[n].art));
+  if (campo === 'cant' && ins && Number(filas[n].cant) > ins.stock) {
+    mostrarAviso(`No puede usar más de lo disponible: ${ins.nombre} (stock ${fmt(ins.stock)} ${ins.unidad}).`);
+    filas[n].cant = String(ins.stock);
+  } else mostrarAviso('');
+  setTimeout(dibujar, 0);   // evita re-dibujar durante el evento blur
 });
-buscador.addEventListener('input', dibujar);
+$('filas').addEventListener('click', e => {
+  const b = e.target.closest('[data-quitar]'); if (!b) return;
+  filas.splice(Number(b.dataset.quitar), 1);
+  if (!filas.length) filas.push({ art: '', cant: '' });
+  dibujar();
+});
+$('btnAgregar').addEventListener('click', () => { filas.push({ art: '', cant: '' }); dibujar(); });
+$('btnSolicitar').addEventListener('click', () => { $('solTexto').value = ''; $('solTexto').classList.remove('is-invalid'); modalSol.show(); });
+$('btnEnviarSol').addEventListener('click', () => {
+  if (!$('solTexto').value.trim()) { $('solTexto').classList.add('is-invalid'); return; }
+  // TODO API: POST de la solicitud (cola offline con uuid_sync)
+  modalSol.hide(); bootstrap.Toast.getOrCreateInstance($('toastOk')).show();
+});
 
-document.getElementById('btnConfirmar').addEventListener('click', () => {
-  if (!Object.keys(consumo).length) {
-    mostrarAviso('Selecciona al menos un insumo, o vuelve si no usaste materiales.');
-    return;
-  }
-  // Guarda el consumo para la siguiente pantalla y avanza (Evidencia fotográfica: Integrante 4)
+$('btnConfirmar').addEventListener('click', () => {
+  const consumo = {};
+  filas.forEach(f => { if (f.art && Number(f.cant) > 0) consumo[f.art] = (consumo[f.art] || 0) + Number(f.cant); });
+  if (!Object.keys(consumo).length) { mostrarAviso('Agregue al menos un material con cantidad, o use "Solicitar Insumos" si no hay stock.'); return; }
   sessionStorage.setItem('consumo', JSON.stringify(consumo));
-  window.location.href = 'evidencia.html';
+  window.location.href = 'evidencia.html';   // pantalla del Integrante 4
 });
 
+function red() { const e = $('estadoRed'); e.textContent = navigator.onLine ? 'En línea' : 'Sin conexión'; e.classList.toggle('sin-red', !navigator.onLine); }
+window.addEventListener('online', red); window.addEventListener('offline', red); red();
 dibujar();
-actualizarResumen();
