@@ -1,5 +1,3 @@
-// Checklist dinámico: los ítems cambian según la categoría de faena.
-// obligatorio: true  => bloquea el avance si no se responde.
 const CHECKLISTS = {
   camara: [
     { id: 'c1', texto: 'Temperatura de la cámara dentro del rango', obligatorio: true },
@@ -22,7 +20,7 @@ const CHECKLISTS = {
   ]
 };
 
-const respuestas = {};            // { idItem: 'ok' | 'falla' }
+const respuestas = {};          
 const selCategoria = document.getElementById('categoria');
 const lista = document.getElementById('listaItems');
 const barra = document.getElementById('barra');
@@ -54,7 +52,6 @@ function dibujar() {
       </div>`;
     card.querySelectorAll('input').forEach(r =>
       r.addEventListener('change', () => { respuestas[it.id] = r.value; actualizar(); }));
-    // restaura respuesta previa si la hubiera
     if (respuestas[it.id]) card.querySelector(`#${it.id}-${respuestas[it.id]}`).checked = true;
     lista.appendChild(card);
   });
@@ -86,7 +83,6 @@ function actualizar() {
 selCategoria.addEventListener('change', dibujar);
 
 btn.addEventListener('click', () => {
-  // Guarda el resultado para la siguiente pantalla y avanza
   sessionStorage.setItem('checklist', JSON.stringify({ categoria: selCategoria.value, respuestas }));
   window.location.href = 'insumos.html';
 });
